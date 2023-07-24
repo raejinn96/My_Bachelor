@@ -24,19 +24,19 @@ class Step:
         GPIO.output(self.enable, 1)
         
     def signal(self):
-        self.boleh()
+        self.boleh()                                # Memanggil fungsi boleh()
         GPIO.output(self.pulsa, 1)
         sleep(0.0025)
         GPIO.output(self.pulsa, 0)
         sleep(0.0025) 
     
     def cW(self):
-        self.signal()  
+        self.signal()                               # Memanggil signal()
         GPIO.output(self.direction, True)
         print("kanan") 
         
     def ccW(self):
-        self.signal()   
+        self.signal()                               # Memanggil signal()
         GPIO.output(self.direction, False)
         print("kiri") 
 
@@ -54,8 +54,10 @@ class Step:
         if self.limitL() == 1 and self.limitR() == 1:
             self.signal()
         elif self.limitL() == 0:
+            print("Putar ke Arah Jarum Jam")
             self.cW()
         elif self.limitR() == 0:
+            print("Putar ke Berlawanan Jarum Jam")
             self.ccW()
         elif self.limitL() == 0 and self.limitR() == 0:
             self.stop()   
