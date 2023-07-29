@@ -28,7 +28,7 @@ class Step:
         
     def signal(self):
         self.boleh() 
-        for x in range(100):     
+        for x in range(75):     
             GPIO.output(self.pulsa, 1)
             sleep(0.002)
             GPIO.output(self.pulsa, 0)
@@ -46,7 +46,8 @@ class Step:
         if tombol == 0 and state == 0:
             state = 1
             self.counterCW += 1
-            print(f"Putaran Clockwise: {self.counterCW}") 
+            # print(f"Putaran Clockwise: {self.counterCW}") 
+            print("Putaran Clockwise")
         elif tombol == 0 and state == 1:
             print("pressed")
         else:
@@ -59,14 +60,16 @@ class Step:
         if tombol == 0 and state == 0:
             state = 1
             self.counterCCW += 1
-            print(f"Putaran Clockwise: {self.counterCCW}") 
+            # print(f"Putaran Anti-Clockwise: {self.counterCCW}") 
+            print("Putaran Anti-Clockwise")
         elif tombol == 0 and state == 1:
             print("pressed")
         else:
-            print(f"Putaran Clockwise: {self.counterCCW}") 
+            print(f"Putaran Anti-Clockwise: {self.counterCCW}") 
         return tombol     
 
     def go(self):
+        self.signal()
         limitL = self.limitL()
         limitR = self.limitR()
         if limitL == 1 and limitR == 1:
