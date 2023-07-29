@@ -46,27 +46,19 @@ class Step:
         if tombol == 0 and state == 0:
             state = 1
             self.counterCW += 1
-            # print(f"Putaran Clockwise: {self.counterCW}") 
-            print("Putaran Clockwise")
         elif tombol == 0 and state == 1:
             print("pressed")
-        else:
-            print(f"Putaran Clockwise: {self.counterCW}") 
-        return tombol          
+        return tombol        
     
     def limitR(self):
         tombol = GPIO.input(self.kanan)
         state = 0
         if tombol == 0 and state == 0:
             state = 1
-            self.counterCCW += 1
-            # print(f"Putaran Anti-Clockwise: {self.counterCCW}") 
-            print("Putaran Anti-Clockwise")
+            self.counterCCW += 1 
         elif tombol == 0 and state == 1:
-            print("pressed")
-        else:
-            print(f"Putaran Anti-Clockwise: {self.counterCCW}") 
-        return tombol     
+            print("pressed")  
+        return tombol 
 
     def go(self):
         self.signal()
@@ -76,9 +68,11 @@ class Step:
             self.signal()
         elif limitL == 0:
             print("Putar ke Arah Jarum Jam")
+            print(f"Putaran Searah: {self.counterCW}\n")
             self.cW()
         elif limitR == 0:
             print("Putar ke Berlawanan Jarum Jam")
+            print(f"Putaran Searah: {self.counterCCW}\n")
             self.ccW()
         elif limitL == 0 and limitR == 0:
             self.stop()   
