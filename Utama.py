@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 from time import sleep
-from StepperMotor import Stepper
+from Motor import Step
 from LimitSwitch import Limit
 
 limit1 = 23
@@ -17,8 +17,10 @@ try:
         sleep(1)
     print("Mulai")
 
+    step = Step(en, dir, pul)
+
     while True:
-        step = Stepper(en, dir, pul)
+        
         ls = Limit(limit1, limit2)
     
         ls_kiri = ls.limitL()
@@ -32,6 +34,9 @@ try:
             step.ccW()
         elif ls_kanan == 0 and ls_kiri == 0:
             step.stop()   
+
+        print(f"Putaran cW: {step.counterCW}\n")
+        print(f"Putaran ccW: {step.counterCCW}\n")    
         
 except KeyboardInterrupt:     
     print("\nIntrupsi") 

@@ -10,13 +10,14 @@ dir = 27
 pul = 22
 
 try:
-
     Count.hitungMundur()
+    step = Step(en, dir, pul, limit1, limit2)           # Membuat objek dari class Step
 
     while True:
-        step = Step(en, dir, pul, limit1, limit2)           # Membuat objek dari class Step
-    
+        step.signal()
         step.go()
+        print(f"Putaran cW: {step.counterCW}\n")
+        print(f"Putaran ccW: {step.counterCCW}\n")
         
 except KeyboardInterrupt:     
     print("\nIntrupsi") 
