@@ -14,10 +14,9 @@ try:
     step = Step(en, dir, pul, limit1, limit2)           # Membuat objek dari class Step
 
     while True:
-        step.signal()
         step.go()
-        print(f"Putaran cW: {step.counterCW}\n")
-        print(f"Putaran ccW: {step.counterCCW}\n")
+        print(f"Putaran Searah: {step.counterCW}\n")
+        print(f"Putaran Anti: {step.counterCCW}\n")
         
 except KeyboardInterrupt:     
     print("\nIntrupsi") 
