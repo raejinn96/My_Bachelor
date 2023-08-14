@@ -30,9 +30,9 @@ class Step:
         self.boleh() 
         for x in range(75):     
             GPIO.output(self.pulsa, 1)
-            sleep(0.002)
+            sleep(0.0001)
             GPIO.output(self.pulsa, 0)
-            sleep(0.002)                         
+            sleep(0.0001)                         
         
     def cW(self):
         GPIO.output(self.direction, True)
@@ -46,6 +46,7 @@ class Step:
         if tombol == 0 and state == 0:
             state = 1
             self.counterCW += 1
+            sleep(0.5)
         elif tombol == 0 and state == 1:
             print("pressed")
         return tombol        
@@ -56,6 +57,7 @@ class Step:
         if tombol == 0 and state == 0:
             state = 1
             self.counterCCW += 1 
+            sleep(1.5)
         elif tombol == 0 and state == 1:
             print("pressed")  
         return tombol 
@@ -72,11 +74,13 @@ class Step:
             self.cW()
         elif limitR == 0:
             print("Putar ke Berlawanan Jarum Jam")
-            print(f"Putaran Searah: {self.counterCCW}\n")
+            print(f"Putaran Berlawanan: {self.counterCCW}\n")
             self.ccW()
         elif limitL == 0 and limitR == 0:
             self.stop()   
-           
+        while self.counterCW >= 4:
+            self.stop() 
+            print("Done")  
 
         
 

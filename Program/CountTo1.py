@@ -2,7 +2,7 @@ from time import sleep
 
 class Count():
     def hitungMundur():
-        waktu = 3
+        waktu = 7
         while waktu > 0:
             print(waktu)
             waktu -= 1

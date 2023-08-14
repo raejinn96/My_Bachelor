@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 from time import sleep
-from Motor import Step
+from Program.Motor import Step
 from LimitSwitch import Limit
 
 limit1 = 23
