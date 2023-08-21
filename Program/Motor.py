@@ -30,9 +30,9 @@ class Step:
         self.boleh() 
         for x in range(75):     
             GPIO.output(self.pulsa, 1)
-            sleep(0.0001)
+            sleep(0.00025)
             GPIO.output(self.pulsa, 0)
-            sleep(0.0001)                         
+            sleep(0.00025)                         
         
     def cW(self):
         GPIO.output(self.direction, True)
@@ -78,7 +78,7 @@ class Step:
             self.ccW()
         elif limitL == 0 and limitR == 0:
             self.stop()   
-        while self.counterCW >= 4:
+        while self.counterCCW >= 7:
             self.stop() 
             print("Done")  
 
