@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import os
+import datetime
 from time import sleep
 from google.cloud import firestore
 
@@ -35,24 +36,52 @@ try:
    
     # sleep(3)
     Count.hitungMundur()
+    isCleaning = False
+    camera = PiCamera(
+        resolution=(1024, 768),)
     # step = Step(en, dir, pul, limit1, limit2)  
     # step.boleh()       
 
     while True:
         
+        doc_ref = db.collection("weather").document("current_condition")
+        doc = doc_ref.get()
+        
+
+# jadwal :
+        sekarang = datetime.datetime.now() #fungsi waktu
+        jam = sekarang.hour
+        menit = sekarang.minute
+
+        
+
+        if jam == 7 and menit == 00:
+            camera.capture()
+            camera.led = True
+            camera.rotation = 180
+            camera.close()
+        else:
+            camera.close()    
+
+        if jam == 9 and menit == 00:
+            step.go()
+        else:
+            step.stop()    
+
+
+        if doc.exists:
+            cleaning_status = doc.get("cleaning")
+            if cleaning_status:
+                print("Cleaning is ON")
+                # Start motor here or perform other cleaning actions
+                step.go(isCleaning=True)
+                # You can also start solenoid or other actions here
+            else:
+                print("Cleaning is OFF")
+                # Stop motor here or perform other actions if needed
+                step.stop()
         # solenoid.nyala()
         # hujan_detector.cek()
-        print("wey")
-        sleep(1)
-        
-        doc_ref = db.collection("weather").document("current_condition")
-        doc_watch = doc_ref.on_snapshot(lambda doc_snapshot, changes, read_time: 
-        [solenoid.nyala() if doc.get("cleaning") 
-         else solenoid.mati() for doc in doc_snapshot])
-            
-    
-            # break
-    
         
         
         

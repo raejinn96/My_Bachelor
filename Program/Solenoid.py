@@ -14,8 +14,6 @@ class Solenoid:
     
     def nyala(self):
         GPIO.output(self.sinyal, 0)
-        sleep(15)
-        GPIO.output(self.sinyal, 1) 
-
+    
     def mati(self):
         GPIO.output(self.sinyal, 1)    

@@ -1,5 +1,9 @@
 import RPi.GPIO as GPIO
 from time import sleep
+from Solenoid import Solenoid
+
+solenoid = Solenoid(5)
+
 
 class Step:
     def __init__(self, enaPin, dirPin, pulPin, ls1, ls2):
@@ -19,6 +23,25 @@ class Step:
 
         self.counterCW = 0
         self.counterCCW = 0
+
+    def start_motor(self):
+        self.boleh() 
+        for x in range(75):     
+            GPIO.output(self.pulsa, 1)
+            sleep(0.00025)
+            GPIO.output(self.pulsa, 0)
+            sleep(0.00025)
+
+    def stop_motor(self):
+        self.stop()
+        # Implement the logic to stop the motor here
+        pass
+
+    def control_motor(self, isCleaning):
+        if isCleaning:
+            self.start_motor()
+        else:
+            self.stop_motor()    
     
     def boleh(self):
         GPIO.output(self.enable, 0)
@@ -62,10 +85,12 @@ class Step:
             print("pressed")  
         return tombol 
 
-    def go(self):
+    def go(self, isCleaning):
         self.signal()
+        solenoid.nyala()
         limitL = self.limitL()
         limitR = self.limitR()
+
         if limitL == 1 and limitR == 1:
             self.signal()
         elif limitL == 0:
@@ -78,9 +103,13 @@ class Step:
             self.ccW()
         elif limitL == 0 and limitR == 0:
             self.stop()   
-        while self.counterCCW >= 7:
+        while self.counterCCW >= 1:
             self.stop() 
+            solenoid.mati()
             print("Done")  
+            exit
+
+        self.control_motor(isCleaning)    
 
         
 
